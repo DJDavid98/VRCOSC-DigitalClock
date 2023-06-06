@@ -5,11 +5,13 @@ namespace DigitalClockModule
     public partial class DigitalClockModule : Module
     {
         public override string Title => "Digital Clock";
-        public override string Description => "Maps your local time to 60-based floats for use in a digital clock";
+        public override string Description => "Maps your local time to float parameters for use in a digital clock";
         public override string Author => "DJDavid98";
         public override string Prefab => "VRCOSC-DigitalClock";
         public override ModuleType Type => ModuleType.General;
-        protected override TimeSpan DeltaUpdate => TimeSpan.FromSeconds(1);
+        protected override TimeSpan DeltaUpdate => TimeSpan.FromMilliseconds(500);
+
+        private const float animationFrameCount = 60f;
 
         protected override void CreateAttributes()
         {
@@ -31,19 +33,29 @@ namespace DigitalClockModule
         {
             var time = DateTime.Now;
 
-            var hours = time.Hour;
-            var minutes = time.Minute;
-            var seconds = time.Second;
+            // Add partial time to next largest unit to ensure timely animation state stransition
+            // This helps keep the clock accurate even with slower DeltaUpdate times
+            var seconds = time.Second + (time.Millisecond / 1000f);
+            var minutes = time.Minute + (seconds / 60f);
+            var hours = time.Hour + (minutes / 60f);
             var isTwelveHour = GetSetting<DigitalClockMode>(DigitalClockSetting.Mode) == DigitalClockMode.Twelve;
 
-            float hourNormalised = (isTwelveHour ? hours % 12f : hours) / 59f;
-            var minuteNormalised = minutes / 59f;
-            var secondNormalised = seconds / 59f;
+            float hourNormalised = (isTwelveHour ? hours % 12f : hours) / animationFrameCount;
+            var minuteNormalised = minutes / animationFrameCount;
+            var secondNormalised = seconds / animationFrameCount;
 
 
-            SendParameter(DigitalClockParameter.Hours, hourNormalised);
-            SendParameter(DigitalClockParameter.Minutes, minuteNormalised);
-            SendParameter(DigitalClockParameter.Seconds, secondNormalised);
+            SendParameter(DigitalClockParameter.Enabled, true);
+            SendParameter(DigitalClockParameter.Hours, RescaleFloat(hourNormalised));
+            SendParameter(DigitalClockParameter.Minutes, RescaleFloat(minuteNormalised));
+            SendParameter(DigitalClockParameter.Seconds, RescaleFloat(secondNormalised));
+        }
+
+        // Converts the float from [0.0;1.0] range to [-0.983;0.983]
+        // Avoids reaching -1 or +1 to prevent undesired animation states
+        private float RescaleFloat(float input)
+        {
+            return Math.Clamp(input * 2f - 1f, -0.983f, 0.983f);
         }
 
         protected override void OnModuleStop()
