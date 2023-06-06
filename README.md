@@ -1,4 +1,4 @@
-<h1><img src="DigialClockModule/logo/logo.png" width="32"> VRCOSC Digital Clock</h1>
+<h1><img src="DigitalClockModule/logo/logo.png" width="32"> VRCOSC Digital Clock</h1>
 
 A digital clock module for [VRCOSC] based on the original [ClockModule].
 It provides 3 `float` parameters (for hours, minutes and seconds) mapped to the range 0-59 for animating the digits of a digital clock.
