@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(0.992245,0,0,0.992245,0.992625,18.2405)">
+        <path d="M256,59.146C256,52.044 250.234,46.279 243.132,46.279L12.868,46.279C5.766,46.279 0,52.044 0,59.146L0,162.088C0,169.19 5.766,174.956 12.868,174.956L243.132,174.956C250.234,174.956 256,169.19 256,162.088L256,59.146Z"/>
+    </g>
+    <g transform="matrix(1,0,0,1,30.7916,71.3843)">
+        <g transform="matrix(72,0,0,72,193.624,70.7683)">
+        </g>
+        <text x="0.792px" y="70.768px" style="font-family:'FuturaBT', 'Futura BT', sans-serif;font-size:72px;fill:white;">03:06</text>
+    </g>
+    <g transform="matrix(1,0,0,1,181.592,146.333)">
+        <g transform="matrix(36,0,0,36,43.0425,30.7326)">
+        </g>
+        <text x="0.574px" y="30.733px" style="font-family:'FuturaBT', 'Futura BT', sans-serif;font-size:36px;fill:white;">21</text>
+    </g>
+</svg>

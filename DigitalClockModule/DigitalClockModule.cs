@@ -15,6 +15,7 @@ namespace DigitalClockModule
         {
             CreateSetting(DigitalClockSetting.Mode, "Mode", "Whether the clock should be in 12-hour or 24-hour mode", DigitalClockMode.Twelve);
 
+            CreateParameter<bool>(DigitalClockParameter.Enabled, ParameterMode.Write, "VRCOSC/DigitalClock/Enabled", "Enabled", "Whether this module is attempting to emit values");
             CreateParameter<float>(DigitalClockParameter.Hours, ParameterMode.Write, "VRCOSC/DigitalClock/Hours", "Hours", "The current hour 0-59 mapped to a float");
             CreateParameter<float>(DigitalClockParameter.Minutes, ParameterMode.Write, "VRCOSC/DigitalClock/Minutes", "Minutes", "The current minute 0-59 mapped to a float");
             CreateParameter<float>(DigitalClockParameter.Seconds, ParameterMode.Write, "VRCOSC/DigitalClock/Seconds", "Seconds", "The current second 0-59 mapped to a float");
@@ -22,6 +23,7 @@ namespace DigitalClockModule
 
         protected override void OnModuleStart()
         {
+            SendParameter(DigitalClockParameter.Enabled, true);
             base.OnModuleStart();
         }
 
@@ -46,11 +48,13 @@ namespace DigitalClockModule
 
         protected override void OnModuleStop()
         {
+            SendParameter(DigitalClockParameter.Enabled, false);
             base.OnModuleStop();
         }
 
         private enum DigitalClockParameter
         {
+            Enabled,
             Hours,
             Minutes,
             Seconds
